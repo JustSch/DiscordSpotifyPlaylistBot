@@ -3,3 +3,4 @@ plan.txt
 .env
 *.info.json
 __pycache__
+.cache
