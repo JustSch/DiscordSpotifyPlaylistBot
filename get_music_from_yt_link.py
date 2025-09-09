@@ -49,7 +49,6 @@ def find_music_info(url,youtube_operation_api_url):
     if song_info == None or song_info == []:
         print('Could not get music info from API. Trying with yt-dlp')
         song_info = get_music_from_yt_dlp(url, video_id)
-
     return song_info
 
 

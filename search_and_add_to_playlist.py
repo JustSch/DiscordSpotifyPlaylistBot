@@ -10,8 +10,11 @@ class SearchAndAdd:
     def search_spotify_for_match(self, yt_music_info):
         results = self.sp.search(q='track:'+yt_music_info[0]+' artist:'+yt_music_info[1],type='track')
         spotify_music_info=[]
-
-        if len(results) > 0:
+        
+        if len(results['tracks']['items']) == 0:
+            print('the song could not be found on spotify. Skipping.....')
+            return ''
+        elif len(results['tracks']['items']) > 0:
 
             print('song match found')
             spotify_music_info = [

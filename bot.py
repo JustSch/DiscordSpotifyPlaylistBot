@@ -45,7 +45,8 @@ async def on_message(message):
             song_info = get_music_from_yt_link.find_music_info(url, YOUTUBE_OPERATIONAL_API_URL)
             if song_info != []:
                 spotify_track_uri = spotify_search_and_adder.search_spotify_for_match(song_info)
-                spotify_search_and_adder.add_to_playlist([spotify_track_uri])
+                if spotify_track_uri != '':
+                    spotify_search_and_adder.add_to_playlist([spotify_track_uri])
         if netloc == 'open.spotify.com':
             path = urlsplit(url).path
             if '/track/' in path:
