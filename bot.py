@@ -43,14 +43,25 @@ async def on_message(message):
         netloc = urlsplit(url).netloc 
         if netloc == 'youtu.be' or netloc== 'www.youtube.com':
             song_info = get_music_from_yt_link.find_music_info(url, YOUTUBE_OPERATIONAL_API_URL)
+       
             if song_info != []:
-                spotify_track_uri = spotify_search_and_adder.search_spotify_for_match(song_info)
-                if spotify_track_uri != '':
-                    spotify_search_and_adder.add_to_playlist([spotify_track_uri])
+                song_list = []
+                if ',' in song_info[1]:
+                    artists = song_info[1].split(',')
+                    for artist in artists:
+                        song_list.append([song_info[0],artist,song_info[1]])
+                else:
+                    song_list = [song_info]
+
+
+                for song in song_list:
+                    spotify_track_uri = spotify_search_and_adder.search_spotify_for_match(song)
+                    if spotify_track_uri != '':
+                        spotify_search_and_adder.add_to_playlist([spotify_track_uri])
         if netloc == 'open.spotify.com':
             path = urlsplit(url).path
             if '/track/' in path:
-                print(path.split("/track/")[1])
+                print('Attemping to add Spotify Track with ID: '+path.split("/track/")[1])
                 spotify_search_and_adder.add_to_playlist(['spotify:track:'+path.split("/track/")[1]])
 
 
