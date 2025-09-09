@@ -5,7 +5,6 @@ load_dotenv()
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-#make into class so this can be instatiated in instance
 class SearchAndAdd:
 
     def search_spotify_for_match(self, yt_music_info):
@@ -33,8 +32,8 @@ class SearchAndAdd:
 
     def check_if_track_in_playlist(self, spotify_track_uri):
         results = self.sp.playlist_items(self.playlist_id)
-        for item in results['items']:        
-            if item['track']['uri'] == spotify_track_uri:
+        for item in results['items']: 
+            if [item['track']['uri']] == spotify_track_uri:
                 return True
         return False
 
