@@ -42,7 +42,6 @@ async def on_message(message):
 
     # Extract URLs using regex instead of splitting by spaces
     urls_in_message = extract_urls(message.content)
-    print(urls_in_message)
 
     for url in urls_in_message:
         netloc = urlsplit(url).netloc 
