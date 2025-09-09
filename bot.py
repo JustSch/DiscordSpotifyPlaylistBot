@@ -5,7 +5,7 @@ import search_and_add_to_playlist
 import nest_asyncio
 import re
 import discord
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 
 nest_asyncio.apply()
 load_dotenv()
@@ -27,9 +27,13 @@ async def on_ready():
     print('Spotify PlayList Bot is now running')
 
 def extract_urls(text):
-    # Extract URLs from text using regex to handle markdown and other formatting
-    url_pattern = r'https?://(?:[-\w.])+(?:[:\d]+)?(?:/(?:[\w/_.])*(?:\?(?:[\w&=%.])*)?(?:#(?:[\w.])*)?)?'
-    return re.findall(url_pattern, text)
+    urls = []
+    split_text = text.split()
+    for t in split_text:
+        parsed = urlsplit(t)
+        if parsed.scheme and parsed.netloc:
+            urls.append(urlunsplit(parsed))
+    return urls
 
 @client.event
 async def on_message(message):
@@ -38,6 +42,7 @@ async def on_message(message):
 
     # Extract URLs using regex instead of splitting by spaces
     urls_in_message = extract_urls(message.content)
+    print(urls_in_message)
 
     for url in urls_in_message:
         netloc = urlsplit(url).netloc 
