@@ -15,9 +15,10 @@ def get_music_from_api(video_id, youtube_operation_api_url):
 
     if req.status_code == 200:
         req_json = req.json()
-        song_info_from_request = req_json['items'][0]['musics'][0] 
 
-        song_info = [song_info_from_request['song'],song_info_from_request['artist'],song_info_from_request['album']]
+        if (req_json['items'][0]['musics']!= []):
+            song_info_from_request = req_json['items'][0]['musics'][0] 
+            song_info = [song_info_from_request['song'],song_info_from_request['artist'],song_info_from_request['album']]
 
     return song_info
 
@@ -49,6 +50,9 @@ def find_music_info(url,youtube_operation_api_url):
     if song_info == None or song_info == []:
         print('Could not get music info from API. Trying with yt-dlp')
         song_info = get_music_from_yt_dlp(url, video_id)
+        
+        if song_info == []:
+            print('Could not get music info from yt-dlp. Video might not contain music info')
 
     if song_info != None and song_info != []:
         print('music info found')
