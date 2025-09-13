@@ -31,7 +31,7 @@ def extract_urls(text):
     for t in split_text:
         parsed = urlsplit(t)
         if parsed.scheme and parsed.netloc:
-            urls.append(urlunsplit(parsed))
+            urls.append(t)
     return urls
 
 @client.event
