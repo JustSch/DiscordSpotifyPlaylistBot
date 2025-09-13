@@ -3,14 +3,13 @@ import os
 import get_music_from_yt_link
 import search_and_add_to_playlist
 import nest_asyncio
-import re
 import discord
 from urllib.parse import urlsplit, urlunsplit
 
 nest_asyncio.apply()
 load_dotenv()
 
-url = os.getenv("url")# change to receive from message
+url = os.getenv("url")
 YOUTUBE_OPERATIONAL_API_URL=os.getenv("YOUTUBE_OPERATIONAL_API_URL")
 
 TOKEN = os.getenv("TOKEN")
@@ -40,7 +39,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # Extract URLs using regex instead of splitting by spaces
     urls_in_message = extract_urls(message.content)
 
     for url in urls_in_message:
