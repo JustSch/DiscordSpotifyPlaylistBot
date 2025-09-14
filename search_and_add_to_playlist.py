@@ -16,13 +16,17 @@ class SearchAndAdd:
         elif len(results['tracks']['items']) > 0:
 
             print('song match found')
-            spotify_music_info = [
-                results['tracks']['items'][0]['artists'][0]['name'],
-                results['tracks']['items'][0]['name'],
-                results['tracks']['items'][0]['album']['name'],
-                results['tracks']['items'][0]['external_urls']['spotify'],
-                results['tracks']['items'][0]['uri']
-            ]
+            
+            for track in results['tracks']['items']:
+                if track['artists'][0]['name'] == yt_music_info[1] and track['name'] == yt_music_info[0]:
+                    spotify_music_info = [
+                        track['artists'][0]['name'],
+                        track['name'],
+                        track['album']['name'],
+                        track['external_urls']['spotify'],
+                        track['uri']
+                    ]
+                    break
 
             print('artist: '+spotify_music_info[0])
             print('title: '+spotify_music_info[1])
