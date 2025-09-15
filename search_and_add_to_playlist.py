@@ -27,7 +27,10 @@ class SearchAndAdd:
                         track['uri']
                     ]
                     break
-
+                
+            if not spotify_music_info: 
+                return ''
+            
             print('artist: '+spotify_music_info[0])
             print('title: '+spotify_music_info[1])
             print('album: '+spotify_music_info[2])
