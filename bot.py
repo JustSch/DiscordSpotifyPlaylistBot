@@ -49,10 +49,11 @@ async def on_message(message):
             if song_info != []:
                 song_list = []
                 if ',' in song_info[1]:
-                    song_list.append([song_info[0],artist,song_info[1]])
+                    print(song_info)
+                    song_list.append([song_info[0],song_info[1],song_info[2]])
                     artists = song_info[1].split(',')
                     for artist in artists:
-                        song_list.append([song_info[0],artist,song_info[1]])
+                        song_list.append([song_info[0],artist,song_info[2]])
                 else:
                     song_list = [song_info]
 
