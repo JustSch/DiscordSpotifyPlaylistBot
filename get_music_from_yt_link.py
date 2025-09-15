@@ -18,7 +18,11 @@ def get_music_from_api(video_id, youtube_operation_api_url):
 
         if (req_json['items'][0]['musics']!= []):
             song_info_from_request = req_json['items'][0]['musics'][0] 
-            song_info = [song_info_from_request['song'],song_info_from_request['artist'],song_info_from_request['album']]
+            
+            if len(song_info_from_request) > 2:
+                song_info = [song_info_from_request['song'],song_info_from_request['artist'],song_info_from_request['album']]
+            else:
+                song_info = [song_info_from_request['song'],song_info_from_request['artist'],'']
 
     return song_info
 
