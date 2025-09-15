@@ -29,6 +29,7 @@ class SearchAndAdd:
                     break
                 
             if not spotify_music_info: 
+                print('results were found but none of them matched the music info from the video')
                 return ''
             
             print('artist: '+spotify_music_info[0])

@@ -60,8 +60,6 @@ async def on_message(message):
                     spotify_track_uri = spotify_search_and_adder.search_spotify_for_match(song)
                     if spotify_track_uri != '':
                         spotify_search_and_adder.add_to_playlist([spotify_track_uri])
-                    else:
-                        print('results were found but none of them matched the music info from the video')
                         
         if netloc == 'open.spotify.com':
             path = urlsplit(url).path
