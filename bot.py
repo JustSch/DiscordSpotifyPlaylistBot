@@ -8,7 +8,7 @@ import logging
 from urllib.parse import urlsplit, urlunsplit
 
 logger = logging.getLogger('spotify playlist bot')
-logging.basicConfig(filename='bot_log.log',level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 nest_asyncio.apply()
 load_dotenv()
