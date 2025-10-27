@@ -1,15 +1,16 @@
 import yt_dlp
 import os
 import requests
+import logging
 from urllib.parse import urlsplit, parse_qs
 from dotenv import load_dotenv
 load_dotenv()
-
+logger = logging.getLogger('spotify playlist bot')
 
 
 def get_music_from_api(video_id, youtube_operation_api_url):
     song_info = []
-    print('Attempting to get music info of video '+video_id+' with API')#change to log to file
+    logger.info('Attempting to get music info of video '+video_id+' with API')#change to log to file
     params = {'part':'musics', 'id': video_id}
     req = requests.get(youtube_operation_api_url+'/videos',params)
 
@@ -30,7 +31,7 @@ def get_music_from_api(video_id, youtube_operation_api_url):
 
 def get_music_from_yt_dlp(url,video_id):
     song_info = []
-    print('Attempting to get music info of video '+video_id+' with yt-dlp')
+    logger.info('Attempting to get music info of video '+video_id+' with yt-dlp')
     ydl = yt_dlp.YoutubeDL({})
     with ydl:
         video = ydl.extract_info(url, download=False)
@@ -52,14 +53,14 @@ def find_music_info(url,youtube_operation_api_url):
     song_info = get_music_from_api(video_id,youtube_operation_api_url)
 
     if song_info == None or song_info == []:
-        print('Could not get music info from API. Trying with yt-dlp')
+        logger.info('Could not get music info from API. Trying with yt-dlp')
         song_info = get_music_from_yt_dlp(url, video_id)
         
         if song_info == []:
-            print('Could not get music info from yt-dlp. Video might not contain music info')
+            logger.info('Could not get music info from yt-dlp. Video might not contain music info')
 
     if song_info != None and song_info != []:
-        print('music info found')
+        logger.info('music info found')
 
     return song_info
 

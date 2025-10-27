@@ -4,3 +4,4 @@ plan.txt
 *.info.json
 __pycache__
 .cache
+*.log

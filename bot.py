@@ -4,7 +4,11 @@ import get_music_from_yt_link
 import search_and_add_to_playlist
 import nest_asyncio
 import discord
+import logging
 from urllib.parse import urlsplit, urlunsplit
+
+logger = logging.getLogger('spotify playlist bot')
+logging.basicConfig(filename='bot_log.log',level=logging.INFO)
 
 nest_asyncio.apply()
 load_dotenv()
@@ -23,7 +27,7 @@ spotify_search_and_adder = search_and_add_to_playlist.SearchAndAdd()
 
 @client.event
 async def on_ready():
-    print('Spotify PlayList Bot is now running')
+    logger.info('Spotify PlayList Bot is now running')
 
 def extract_urls(text):
     urls = []
@@ -65,7 +69,7 @@ async def on_message(message):
         if netloc == 'open.spotify.com':
             path = urlsplit(url).path
             if '/track/' in path:
-                print('Attemping to add Spotify Track with ID: '+path.split("/track/")[1])
+                logger.info('Attemping to add Spotify Track with ID: '+path.split("/track/")[1])
                 spotify_search_and_adder.add_to_playlist(['spotify:track:'+path.split("/track/")[1]])
 
 
