@@ -5,6 +5,7 @@ import search_and_add_to_playlist
 import nest_asyncio
 import discord
 import logging
+from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 logger = logging.getLogger('spotify playlist bot')
@@ -27,6 +28,13 @@ spotify_search_and_adder = search_and_add_to_playlist.SearchAndAdd()
 
 @client.event
 async def on_ready():
+    
+    if not Path('.cache').is_file():
+        logger.info('Please follow the instructions to authenticate this bot with Spotify')
+        spotify_search_and_adder.search_spotify_for_match(['Usseewa','Ado'])
+        logger.info('Spotify Authentication Completed')
+
+
     logger.info('Spotify PlayList Bot is now running')
 
 def extract_urls(text):
