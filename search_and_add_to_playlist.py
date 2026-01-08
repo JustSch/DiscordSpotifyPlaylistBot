@@ -62,7 +62,8 @@ class SearchAndAdd:
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=os.getenv("spotify_client_id"),
                                                 client_secret=os.getenv("spotify_client_secret"),
                                                 redirect_uri=os.getenv("spotify_redirect_uri"),
-                                                scope="playlist-modify-public, playlist-modify-private"))
+                                                scope="playlist-modify-public, playlist-modify-private",
+                                                open_browser=False))
         self.playlist_id = os.getenv('playlist_id')
         
 
