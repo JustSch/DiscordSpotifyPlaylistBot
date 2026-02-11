@@ -6,3 +6,4 @@ yt-dlp
 spotipy
 discord.py
 nest_asyncio
+deno
