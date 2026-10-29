@@ -43,10 +43,16 @@ class SearchAndAdd:
             return spotify_music_info[4]
 
     def check_if_track_in_playlist(self, spotify_track_uri):
-        results = self.sp.playlist_items(self.playlist_id)
-        for item in results['items']: 
-            if [item['track']['uri']] == spotify_track_uri:
-                return True
+        
+        total_items =  self.sp.playlist(self.playlist_id,fields='items(total)')['items']['total']
+        offset = 0
+        while offset < total_items:           
+            results = self.sp.playlist_items(self.playlist_id,offset=offset) #limit of 50 items need to offset
+            for item in results['items']: 
+                if [item['track']['uri']] == spotify_track_uri:
+                    return True
+            offset += 50
+                      
         return False
 
 
